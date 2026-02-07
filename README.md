@@ -1,4 +1,4 @@
-# Viora Server TS
+# Viora API
 
 ## Overview
 Viora Server is the backend API for the Viora social platform. It is built with Node.js, Express, and TypeScript, following a layered architecture pattern to ensure scalability, maintainability, and separation of concerns.
