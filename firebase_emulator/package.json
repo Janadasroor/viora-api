@@ -1,0 +1,13 @@
+{
+  "name": "firebase_emulator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "emulators:start": "firebase emulators:start --import=./emulator_data --export-on-exit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

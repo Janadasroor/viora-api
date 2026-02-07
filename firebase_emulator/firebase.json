@@ -1,0 +1,21 @@
+{
+  "emulators": {
+    "storage": {
+      "port": 9199,
+      "host": "localhost",
+      "buckets": [
+        {
+          "id": "viora-887d7.firebasestorage.app"
+        }
+      ]
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulatorData": "./emulator_data"
+}

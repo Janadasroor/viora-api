@@ -1,0 +1,11 @@
+
+User Profile Seeding Performance Report
+---------------------------------------
+Date: 2025-12-08T21:20:49.157Z
+Total Users Processed: 1000
+Success: 1000
+Failed: 0
+Skipped: 0
+Total Time: 7.41s
+Avg Time per User: 0.0074s
+---------------------------------------

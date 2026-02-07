@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: viora
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: viora_pluse_v1
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      # Mount initialization scripts provided in db_schema
+      # Note: This file contains both schema and cleaned data
+      - ./db_schema/viora_pluse_v1_data_cleaned.sql:/docker-entrypoint-initdb.d/setup.sql
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra-server
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=VioraCluster
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    volumes:
+      - ./db_schema:/docker-entrypoint-initdb.d
+      - cassandra_data:/var/lib/cassandra
+    # Override command to run init script in background or use a separate init container
+    # For simplicity, we'll use a separate init service that waits for Cassandra
+
+  cassandra-init:
+    image: cassandra:4.1
+    container_name: cassandra-init
+    depends_on:
+      - cassandra
+    volumes:
+      - ./db_schema:/docker-entrypoint-initdb.d
+    entrypoint: ["/bin/bash", "/docker-entrypoint-initdb.d/init_cassandra.sh"]
+
+  qdrant:
+    image: qdrant/qdrant:v1.9.2
+    container_name: qdrant-server
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  qdrant-init:
+    image: curlimages/curl:latest
+    container_name: qdrant-init
+    depends_on:
+      - qdrant
+    volumes:
+      - ./db_schema:/init-scripts
+    entrypoint: ["/bin/sh", "/init-scripts/init_qdrant.sh"]
+
+volumes:
+  pg_data:
+  cassandra_data:
+  qdrant_data:
