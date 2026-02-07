@@ -5,6 +5,13 @@ Viora Server is the backend API for the Viora social platform. It is built with 
 
 **Repository:** [https://github.com/Janadasroor/viora-api](https://github.com/Janadasroor/viora-api)
 
+## Viora Ecosystem
+
+This repository is part of the larger Viora ecosystem. Check out our client applications:
+- **Web App:** [viora-web](https://github.com/Janadasroor/viora-web) (Next.js)
+- **Android App:** [viora-android](https://github.com/Janadasroor/viora-android) (Native Android/Kotlin)
+- **Documentation:** [viora-docs](https://github.com/Janadasroor/viora-docs) (Developer Guides)
+
 ## Architecture
 
 The system follows a standard **Controller-Service-Repository** pattern, augmented with an asynchronous **Job Queue** system for heavy background processing (media encoding, notifications, complex interactions).
